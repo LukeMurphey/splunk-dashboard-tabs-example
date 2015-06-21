@@ -1,0 +1,7 @@
+<nav search_view="search" color="#77C68C">
+	  <view name="tabs_step1" default="true" />
+	  <view name="tabs_step2" />
+	  <view name="tabs_step3" />
+	  <view name="tabs_step4" />
+	  <view name="tabs_step5" />
+</nav>

@@ -1,0 +1,68 @@
+<form>
+	<label>Step 1</label>
+	<fieldset submitButton="true" autoRun="false">
+	    <input type="time" token="field1" searchWhenChanged="false">
+	      <label></label>
+	      <default>
+	        <earliest>-24h@h</earliest>
+	        <latest>now</latest>
+	      </default>
+	    </input>
+	</fieldset>
+  <row>
+    <panel>
+      <title>Sourcetypes</title>
+      <table>
+        <search>
+          <query>| search * | stats count by sourcetype</query>
+          <earliest>$field1.earliest$</earliest>
+          <latest>$field1.latest$</latest>
+        </search>
+        <option name="count">10</option>
+      </table>
+    </panel>
+  </row>
+  
+  <row>
+    <panel>
+      <title>Source</title>
+      <table>
+        <search>
+          <query>| search * | stats count by source</query>
+          <earliest>$field1.earliest$</earliest>
+          <latest>$field1.latest$</latest>
+        </search>
+        <option name="count">10</option>
+      </table>
+    </panel>
+  </row>
+  
+  <row>
+    <panel>
+      <title>Sourcetypes (internal)</title>
+      <table>
+        <search>
+          <query>| search * index=_internal | stats count by sourcetype</query>
+          <earliest>$field1.earliest$</earliest>
+          <latest>$field1.latest$</latest>
+        </search>
+        <option name="count">10</option>
+      </table>
+    </panel>
+  </row>
+  
+  <row>
+    <panel>
+      <title>Source (internal)</title>
+      <table>
+        <search>
+          <query>| search * index=_internal | stats count by source</query>
+          <earliest>$field1.earliest$</earliest>
+          <latest>$field1.latest$</latest>
+        </search>
+        <option name="count">10</option>
+      </table>
+    </panel>
+  </row>
+
+</form>
