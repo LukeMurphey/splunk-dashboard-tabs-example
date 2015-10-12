@@ -26,10 +26,15 @@ require(['jquery','underscore','splunkjs/mvc', 'bootstrap.tab', 'splunkjs/mvc/si
 		}
 	};
 	
-	var rerenderPanels = function(row_id){
+	var rerenderPanels = function(row_id, force){
 		
-		// Don't both if the panel was already rendered
-		if( _.contains(tabsInitialzed, row_id) ){
+		// Set a default argument for dont_rerender_until_needed
+    	if( typeof force === 'undefined'){
+    		force = true;
+    	}
+		
+		// Don't do both if the panel was already rendered
+		if( !force && _.contains(tabsInitialzed, row_id) ){
 			return;
 		}
 		
@@ -70,6 +75,8 @@ require(['jquery','underscore','splunkjs/mvc', 'bootstrap.tab', 'splunkjs/mvc/si
 		
 		// Now show this tabs toggle elements
 		for(var c = 0; c < toToggle.length; c++){
+			
+			// Show the items
 			$('#' + toToggle[c], this.$el).show();
 			
 			// Re-render the panels under the item if necessary
