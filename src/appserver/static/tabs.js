@@ -114,8 +114,8 @@ require(['jquery','underscore','splunkjs/mvc', 'bootstrap.tab', 'splunkjs/mvc/si
     
     // Get the tab token for a given tab name
     var getTabTokenForTabName = function(tab_name){
-    	return tab_name; //"tab_" + 
-    }
+    	return tab_name;
+    };
     
     // Get all of the possible tab control tokens
     var getTabTokens = function(){
@@ -128,7 +128,7 @@ require(['jquery','underscore','splunkjs/mvc', 'bootstrap.tab', 'splunkjs/mvc/si
     	}
     	
     	return tabTokens;
-    }
+    };
     
     // Clear all but the active tab control tokens
     var clearTabControlTokens = function(){
@@ -146,12 +146,12 @@ require(['jquery','underscore','splunkjs/mvc', 'bootstrap.tab', 'splunkjs/mvc/si
     			tokens.set(tabTokens[c], undefined);
     		}
     	}
-    }
+    };
     
     // Get the tab control token for the active tab
     var getActiveTabToken = function(){
     	return $('#tabs > li.active > a').data('token');
-    }
+    };
     
     // Set the token for the active tab
     var setActiveTabToken = function(){
@@ -160,7 +160,7 @@ require(['jquery','underscore','splunkjs/mvc', 'bootstrap.tab', 'splunkjs/mvc/si
     	var tokens = mvc.Components.getInstance("submitted");
     	
     	tokens.set(activeTabToken, '');
-    }
+    };
     
     var setTokenForTab = function(e){
     	
@@ -172,7 +172,7 @@ require(['jquery','underscore','splunkjs/mvc', 'bootstrap.tab', 'splunkjs/mvc/si
 		tokens.set(tabToken, '');
 		
 		console.info("Set the token for the active tab (" + tabToken + ")");
-    }
+    };
     
     $('a[data-toggle="tab"]').on('shown', setTokenForTab);
     
