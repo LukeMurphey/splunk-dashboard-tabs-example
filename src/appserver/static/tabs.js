@@ -96,17 +96,6 @@ require(['jquery','underscore','splunkjs/mvc', 'bootstrap.tab', 'splunkjs/mvc/si
 		}
 		
 	};
-	
-	// Wire up the function to show the appropriate tab
-	$('a[data-toggle="tab"]').on('shown', selectTab);
-	
-	// Show the first tab in each tab set
-	$.each($('.nav-tabs'), function(index, value) {
-		$('.toggle-tab', value).first().trigger('shown');
-	});
-	
-	// Make the tabs into tabs
-    $('#tabs', this.$el).tab();
     
     /**
      * The code below handles the tokens that trigger when searches are kicked off for a tab.
@@ -174,7 +163,18 @@ require(['jquery','underscore','splunkjs/mvc', 'bootstrap.tab', 'splunkjs/mvc/si
 		console.info("Set the token for the active tab (" + tabToken + ")");
     };
     
-    $('a[data-toggle="tab"]').on('shown', setTokenForTab);
+	$('a[data-toggle="tab"]').on('shown', setTokenForTab);
+	
+	// Wire up the function to show the appropriate tab
+	$('a[data-toggle="tab"]').on('shown', selectTab);
+	
+	// Show the first tab in each tab set
+	$.each($('.nav-tabs'), function(index, value) {
+		$('.toggle-tab', value).first().trigger('shown');
+	});
+	
+	// Make the tabs into tabs
+    $('#tabs', this.$el).tab();
     
     // Wire up the tab control tokenization
     var submit = mvc.Components.get("submit");
