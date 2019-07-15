@@ -10,17 +10,22 @@ require(['jquery','underscore','splunkjs/mvc', 'bootstrap.tab', 'splunkjs/mvc/si
 	// The normal, auto-magical Bootstrap tab processing doesn't work for us since it requires a particular
 	// layout of HTML that we cannot use without converting the view entirely to simpleXML. So, we are
 	// going to handle it ourselves.
-	var hideTabTargets = function(){
-		
+	var hideTabTargets = function(tabSetClass) {
+
 		var tabs = $('a[data-elements]');
-		
+
+		// If we are only applying this to a particular set of tabs, then limit the selector accordingly
+		if (typeof tabSetClass !== 'undefined' && tabSetClass) {
+			tabs = $('a.' + tabSetClass + '[data-elements]');
+		}
+
 		// Go through each toggle tab
-		for(var c = 0; c < tabs.length; c++){
-			
+		for (var c = 0; c < tabs.length; c++) {
+
 			// Hide the targets associated with the tab
 			var targets = $(tabs[c]).data("elements").split(",");
-			
-			for(var d = 0; d < targets.length; d++){
+
+			for (var d = 0; d < targets.length; d++) {
 				$('#' + targets[d], this.$el).hide();
 			}
 		}
@@ -67,11 +72,18 @@ require(['jquery','underscore','splunkjs/mvc', 'bootstrap.tab', 'splunkjs/mvc/si
 			return;
 		}
 		
+		// Determine if the set of tabs has a restriction on the classes to manipulate
+		var tabSet = null;
+
+		if ($(e.target).data("tab-set") !== undefined) {
+			tabSet = $(e.target).data("tab-set");
+		}
+
 		// Get the IDs that we should enable for this tab
 		var toToggle = $(e.target).data("elements").split(",");
 		
 		// Hide the tab content by default
-		hideTabTargets();
+		hideTabTargets(tabSet);
 		
 		// Now show this tabs toggle elements
 		for(var c = 0; c < toToggle.length; c++){
@@ -88,8 +100,10 @@ require(['jquery','underscore','splunkjs/mvc', 'bootstrap.tab', 'splunkjs/mvc/si
 	// Wire up the function to show the appropriate tab
 	$('a[data-toggle="tab"]').on('shown', selectTab);
 	
-	// Show the first tab
-	$('.toggle-tab').first().trigger('shown');
+	// Show the first tab in each tab set
+	$.each($('.nav-tabs'), function(index, value) {
+		$('.toggle-tab', value).first().trigger('shown');
+	});
 	
 	// Make the tabs into tabs
     $('#tabs', this.$el).tab();

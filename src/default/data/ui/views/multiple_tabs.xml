@@ -1,0 +1,101 @@
+<form script="tabs.js" stylesheet="tabs.css">
+	<label>Charts</label>
+	<fieldset submitButton="true" autoRun="false">
+	    <input type="time" token="field1" searchWhenChanged="false">
+	      <label></label>
+	      <default>
+	        <earliest>-24h@h</earliest>
+	        <latest>now</latest>
+	      </default>
+	    </input>
+	</fieldset>
+	<row id="tabs">
+		<panel>
+			<html>
+				<ul id="tabs" class="nav nav-tabs">
+                    <li class="active">
+                        <a href="#" class="toggle-tab non_internal_data" data-toggle="tab" data-tab-set="non_internal_data" data-elements="tab_source" data-token="control_token_non_internal">Non-Internal Indexes</a>
+                    </li>
+					<li>
+						<a href="#" class="toggle-tab non_internal_data" data-toggle="tab" data-tab-set="non_internal_data" data-elements="tab_sourcetype" data-token="control_token_non_internal">Non-Internal Sourcetypes</a>
+					</li>
+				</ul>
+			</html>
+		</panel>
+	</row>
+  <row id="tab_sourcetype">
+    <panel>
+      <title>Sourcetypes</title>
+      <chart>
+        <search>
+          <query>| search * $control_token_non_internal$ | stats count by sourcetype</query>
+          <earliest>$field1.earliest$</earliest>
+          <latest>$field1.latest$</latest>
+        </search>
+		<option name="charting.chart">area</option>
+		<option name="count">10</option>
+		<option name="displayRowNumbers">true</option>
+      </chart>
+    </panel>
+  </row>
+  
+  <row id="tab_source">
+    <panel>
+      <title>Source</title>
+      <chart>
+        <search>
+          <query>| search * $control_token_non_internal$ | stats count by source</query>
+          <earliest>$field1.earliest$</earliest>
+          <latest>$field1.latest$</latest>
+        </search>
+		<option name="charting.chart">area</option>
+		<option name="count">10</option>
+		<option name="displayRowNumbers">true</option>
+      </chart>
+    </panel>
+  </row>
+
+	<row id="tabs2">
+		<panel>
+			<html>
+				<ul id="tabs" class="nav nav-tabs">
+                    <li class="active">
+                        <a href="#" class="toggle-tab internal_data" data-toggle="tab" data-tab-set="internal_data" data-elements="tab_source_internal" data-token="control_token_internal">Internal Sources</a>
+                    </li>
+					<li>
+						<a href="#" class="toggle-tab internal_data" data-toggle="tab" data-tab-set="internal_data" data-elements="tab_sourcetype_internal" data-token="control_token_internal">Internal Indexes</a>
+					</li>
+				</ul>
+			</html>
+		</panel>
+	</row>
+
+  <row id="tab_sourcetype_internal">
+    <panel>
+      <title>Sourcetypes (internal)</title>
+      <table>
+        <search>
+          <query>| search * $control_token_internal$ index=_internal | stats count by sourcetype</query>
+          <earliest>$field1.earliest$</earliest>
+          <latest>$field1.latest$</latest>
+        </search>
+        <option name="count">10</option>
+      </table>
+    </panel>
+  </row>
+  
+  <row id="tab_source_internal">
+    <panel>
+      <title>Source (internal)</title>
+      <table>
+        <search>
+          <query>| search * $control_token_internal$ index=_internal | stats count by source</query>
+          <earliest>$field1.earliest$</earliest>
+          <latest>$field1.latest$</latest>
+        </search>
+        <option name="count">10</option>
+      </table>
+    </panel>
+  </row>
+
+</form>
