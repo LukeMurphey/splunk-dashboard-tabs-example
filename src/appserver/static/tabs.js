@@ -162,30 +162,33 @@ require(['jquery','underscore','splunkjs/mvc', 'bootstrap.tab', 'splunkjs/mvc/si
 		
 		console.info("Set the token for the active tab (" + tabToken + ")");
     };
-    
-	$('a[data-toggle="tab"]').on('shown', setTokenForTab);
 	
-	// Wire up the function to show the appropriate tab
-	$('a[data-toggle="tab"]').on('shown', selectTab);
-	
-	// Show the first tab in each tab set
-	$.each($('.nav-tabs'), function(index, value) {
-		$('.toggle-tab', value).first().trigger('shown');
-	});
-	
-	// Make the tabs into tabs
-    $('#tabs', this.$el).tab();
-    
-    // Wire up the tab control tokenization
-    var submit = mvc.Components.get("submit");
-    
-    if( submit ){
-	    submit.on("submit", function() {
-	    	clearTabControlTokens();
-	    });
-    }
-    
-    // Set the token for the selected tab
-    setActiveTabToken();
-    
+	var firstTimeTabSetup = function() { 
+		$('a[data-toggle="tab"]').on('shown', setTokenForTab);
+		
+		// Wire up the function to show the appropriate tab
+		$('a[data-toggle="tab"]').on('shown', selectTab);
+		
+		// Show the first tab in each tab set
+		$.each($('.nav-tabs'), function(index, value) {
+			$('.toggle-tab', value).first().trigger('shown');
+		});
+		
+		// Make the tabs into tabs
+		$('#tabs', this.$el).tab();
+		
+		// Wire up the tab control tokenization
+		var submit = mvc.Components.get("submit");
+		
+		if( submit ){
+			submit.on("submit", function() {
+				clearTabControlTokens();
+			});
+		}
+		
+		// Set the token for the selected tab
+		setActiveTabToken();
+	};
+
+	firstTimeTabSetup();
 });
