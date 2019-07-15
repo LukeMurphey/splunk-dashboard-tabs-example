@@ -7,9 +7,14 @@ require(['jquery','underscore','splunkjs/mvc', 'bootstrap.tab', 'splunkjs/mvc/si
 	 * The below defines the tab handling logic.
 	 */
 	
-	// The normal, auto-magical Bootstrap tab processing doesn't work for us since it requires a particular
-	// layout of HTML that we cannot use without converting the view entirely to simpleXML. So, we are
-	// going to handle it ourselves.
+	/**
+	 * This hides the content associated with the tabs.
+	 *
+	 * The normal, auto-magical Bootstrap tab processing doesn't work for us since it requires a particular
+	 * layout of HTML that we cannot use without converting the view entirely to simpleXML. So, we are
+	 * going to handle it ourselves.
+	 * @param {string} tabSetClass the 
+	 */
 	var hideTabTargets = function(tabSetClass) {
 
 		var tabs = $('a[data-elements]');
@@ -31,6 +36,12 @@ require(['jquery','underscore','splunkjs/mvc', 'bootstrap.tab', 'splunkjs/mvc/si
 		}
 	};
 	
+	/**
+	 * Force a re-render of the panels with the given row ID.
+	 *
+	 * @param {string} row_id The ID of the row to force a rerender on
+	 * @param {bool} force Force the tab to re-render even if it was already rendered once (defaults to true)
+	 */
 	var rerenderPanels = function(row_id, force){
 		
 		// Set a default argument for dont_rerender_until_needed
@@ -64,6 +75,11 @@ require(['jquery','underscore','splunkjs/mvc', 'bootstrap.tab', 'splunkjs/mvc/si
 		tabsInitialzed.push(row_id);
 	};
 	
+	/**
+	 * Handles the selection of a partiular tab.
+	 *
+	 * @param {*} e 
+	 */
 	var selectTab = function (e) {
 		
 		// Stop if the tabs have no elements
@@ -101,7 +117,10 @@ require(['jquery','underscore','splunkjs/mvc', 'bootstrap.tab', 'splunkjs/mvc/si
      * The code below handles the tokens that trigger when searches are kicked off for a tab.
      */
     
-    // Get the tab token for a given tab name
+	/**
+	 * Get the tab token for a given tab name
+	 * @param {string} tab_name The name of the tab
+	 */
     var getTabTokenForTabName = function(tab_name){
     	return tab_name;
     };
@@ -118,8 +137,10 @@ require(['jquery','underscore','splunkjs/mvc', 'bootstrap.tab', 'splunkjs/mvc/si
     	
     	return tabTokens;
     };
-    
-    // Clear all but the active tab control tokens
+
+	/**
+	 * Clear all but the active tab control tokens
+	 */
     var clearTabControlTokens = function(){
     	console.info("Clearing tab control tokens");
     	
@@ -137,12 +158,16 @@ require(['jquery','underscore','splunkjs/mvc', 'bootstrap.tab', 'splunkjs/mvc/si
     	}
     };
     
-    // Get the tab control token for the active tab
+	/**
+	 * Get the tab control token for the active tab
+	 */
     var getActiveTabToken = function(){
     	return $('#tabs > li.active > a').data('token');
     };
     
-    // Set the token for the active tab
+	/**
+	 * Set the token for the active tab
+	 */
     var setActiveTabToken = function(){
     	var activeTabToken = getActiveTabToken();
     	
@@ -150,7 +175,11 @@ require(['jquery','underscore','splunkjs/mvc', 'bootstrap.tab', 'splunkjs/mvc/si
     	
     	tokens.set(activeTabToken, '');
     };
-    
+	
+	/**
+	 * Handle the setting of the token for the clicked tab.
+	 * @param {*} e 
+	 */
     var setTokenForTab = function(e){
     	
 		// Get the token for the tab
@@ -163,6 +192,9 @@ require(['jquery','underscore','splunkjs/mvc', 'bootstrap.tab', 'splunkjs/mvc/si
 		console.info("Set the token for the active tab (" + tabToken + ")");
     };
 	
+	/**
+	 * Perform the initial setup for making the tabs work.
+	 */
 	var firstTimeTabSetup = function() { 
 		$('a[data-toggle="tab"]').on('shown', setTokenForTab);
 		
