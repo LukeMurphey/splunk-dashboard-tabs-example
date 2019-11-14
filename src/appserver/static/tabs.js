@@ -81,7 +81,13 @@ require(['jquery','underscore','splunkjs/mvc', 'bootstrap.tab', 'splunkjs/mvc/si
 	 * @param {*} e 
 	 */
 	var selectTab = function (e) {
-		
+		// Update which tab is considered active
+		$('#tabs > li.active').removeClass("active");
+		$(e.target).closest("li").addClass("active");
+
+		// clearTabControlTokens();
+		setActiveTabToken();
+
 		// Stop if the tabs have no elements
 		if( $(e.target).data("elements") === undefined ){
 			console.warn("Yikes, the clicked tab has no elements to hide!");
@@ -169,11 +175,19 @@ require(['jquery','underscore','splunkjs/mvc', 'bootstrap.tab', 'splunkjs/mvc/si
 	 * Set the token for the active tab
 	 */
     var setActiveTabToken = function(){
-    	var activeTabToken = getActiveTabToken();
-    	
-    	var tokens = mvc.Components.getInstance("submitted");
-    	
-    	tokens.set(activeTabToken, '');
+		var activeTabToken = getActiveTabToken();
+		var tokens = mvc.Components.getInstance("submitted");
+		
+		if(activeTabToken){
+			// Set each token if necessary
+			activeTabToken.split(",").forEach(function(token){
+
+				// If the token wasn't set, set it so that the searches can run
+				if(!tokens.toJSON()[token] || tokens.toJSON()[token] == undefined){
+					tokens.set(token, "");
+				}
+			});
+		}
     };
 	
 	/**
@@ -196,10 +210,10 @@ require(['jquery','underscore','splunkjs/mvc', 'bootstrap.tab', 'splunkjs/mvc/si
 	 * Perform the initial setup for making the tabs work.
 	 */
 	var firstTimeTabSetup = function() { 
-		$('a[data-toggle="tab"]').on('shown', setTokenForTab);
+		$('a.toggle-tab').on('shown', setTokenForTab);
 		
 		// Wire up the function to show the appropriate tab
-		$('a[data-toggle="tab"]').on('shown', selectTab);
+		$('a.toggle-tab').on('click shown', selectTab);
 		
 		// Show the first tab in each tab set
 		$.each($('.nav-tabs'), function(index, value) {
@@ -212,7 +226,7 @@ require(['jquery','underscore','splunkjs/mvc', 'bootstrap.tab', 'splunkjs/mvc/si
 		// Wire up the tab control tokenization
 		var submit = mvc.Components.get("submit");
 		
-		if( submit ){
+		if(submit){
 			submit.on("submit", function() {
 				clearTabControlTokens();
 			});
