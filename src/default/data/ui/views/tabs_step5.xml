@@ -1,5 +1,6 @@
 <form script="tabs.js" stylesheet="tabs.css">
 	<label>Step 5</label>
+  <description>The panels now execute only when the tabs are clicked</description>
 	<fieldset submitButton="true" autoRun="false">
 	    <input type="time" token="field1" searchWhenChanged="false">
 	      <label></label>

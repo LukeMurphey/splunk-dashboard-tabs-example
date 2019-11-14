@@ -1,5 +1,6 @@
 <form script="tabs.js" stylesheet="tabs.css">
 	<label>Step 4</label>
+  <description>The tabs are now wired up to show/hide the panels</description>
 	<fieldset submitButton="true" autoRun="false">
 	    <input type="time" token="field1" searchWhenChanged="false">
 	      <label></label>

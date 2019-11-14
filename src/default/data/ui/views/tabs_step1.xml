@@ -1,5 +1,7 @@
 <form>
 	<label>Step 1</label>
+  <description>This is just a SimpleXML page with all of the content exposed.
+  See https://www.splunk.com/en_us/blog/tips-and-tricks/making-a-dashboard-with-tabs-and-searches-that-run-when-clicked.html</description>
 	<fieldset submitButton="true" autoRun="false">
 	    <input type="time" token="field1" searchWhenChanged="false">
 	      <label></label>
