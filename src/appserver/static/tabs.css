@@ -31,3 +31,15 @@
 .nav-tabs > li:focus-within:before {
     box-shadow: inset 3px 2px 3px rgba(82, 168, 236, .5);
 }
+
+.dashboard-panel[class*="dashboardPanel---pages-dark"] ul.nav-tabs {
+	background-color: #3c444d;
+}
+
+.dashboard-panel[class*="dashboardPanel---pages-dark"] ul.nav-tabs li a {
+	color: #c3cbd4;
+}
+
+.dashboard-panel[class*="dashboardPanel---pages-dark"] ul.nav-tabs li.active a {
+	color: #ffffff;
+}
