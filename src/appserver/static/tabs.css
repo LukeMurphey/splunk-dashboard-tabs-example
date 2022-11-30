@@ -43,3 +43,7 @@
 .dashboard-panel[class*="dashboardPanel---pages-dark"] ul.nav-tabs li.active a {
 	color: #ffffff;
 }
+
+.row-hide {
+    display: none;
+}

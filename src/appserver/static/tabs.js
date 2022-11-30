@@ -31,7 +31,7 @@ require(['jquery','underscore','splunkjs/mvc', 'bootstrap.tab', 'splunkjs/mvc/si
 			var targets = $(tabs[c]).data("elements").split(",");
 
 			for (var d = 0; d < targets.length; d++) {
-				$('#' + targets[d], this.$el).hide();
+				$('#' + targets[d], this.$el).addClass('row-hide');
 			}
 		}
 	};
@@ -111,7 +111,7 @@ require(['jquery','underscore','splunkjs/mvc', 'bootstrap.tab', 'splunkjs/mvc/si
 		for(var c = 0; c < toToggle.length; c++){
 			
 			// Show the items
-			$('#' + toToggle[c], this.$el).show();
+			$('#' + toToggle[c], this.$el).removeClass('row-hide');
 			
 			// Re-render the panels under the item if necessary
 			rerenderPanels(toToggle[c]);
