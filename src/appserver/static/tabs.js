@@ -1,4 +1,4 @@
-require(['jquery','underscore','splunkjs/mvc', 'bootstrap.tab', 'splunkjs/mvc/simplexml/ready!'],
+require(['jquery','underscore','splunkjs/mvc','splunkjs/mvc/simplexml/ready!'],
 		function($, _, mvc){
 	
 	var tabsInitialzed = [];
@@ -221,7 +221,7 @@ require(['jquery','underscore','splunkjs/mvc', 'bootstrap.tab', 'splunkjs/mvc/si
 		});
 		
 		// Make the tabs into tabs
-		$('#tabs', this.$el).tab();
+		//$('#tabs', this.$el).tab();
 		
 		// Wire up the tab control tokenization
 		var submit = mvc.Components.get("submit");
