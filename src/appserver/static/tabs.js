@@ -1,4 +1,4 @@
-require(['jquery','underscore','splunkjs/mvc', 'bootstrap.tab', 'splunkjs/mvc/simplexml/ready!'],
+require(['jquery','underscore','splunkjs/mvc','splunkjs/mvc/simplexml/ready!'],
 		function($, _, mvc){
 	
 	var tabsInitialzed = [];
@@ -31,7 +31,7 @@ require(['jquery','underscore','splunkjs/mvc', 'bootstrap.tab', 'splunkjs/mvc/si
 			var targets = $(tabs[c]).data("elements").split(",");
 
 			for (var d = 0; d < targets.length; d++) {
-				$('#' + targets[d], this.$el).addClass('row-hide');
+				$(document.getElementById(targets[d]), this.$el).addClass('row-hide');
 			}
 		}
 	};
@@ -111,7 +111,7 @@ require(['jquery','underscore','splunkjs/mvc', 'bootstrap.tab', 'splunkjs/mvc/si
 		for(var c = 0; c < toToggle.length; c++){
 			
 			// Show the items
-			$('#' + toToggle[c], this.$el).removeClass('row-hide');
+			$(document.getElementById(toToggle[c]), this.$el).removeClass('row-hide');
 			
 			// Re-render the panels under the item if necessary
 			rerenderPanels(toToggle[c]);
@@ -221,7 +221,7 @@ require(['jquery','underscore','splunkjs/mvc', 'bootstrap.tab', 'splunkjs/mvc/si
 		});
 		
 		// Make the tabs into tabs
-		$('#tabs', this.$el).tab();
+		//$('#tabs', this.$el).tab();
 		
 		// Wire up the tab control tokenization
 		var submit = mvc.Components.get("submit");
